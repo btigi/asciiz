@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "1SFBokXrFL7IzY1SbaNqIv/395iJXm/srQNFLxB6O2lW0vNff24LXlIeSZlmVUQGOidz4F28wAJjuTxRV3wz3Q==",
+  "success": true,
+  "projectFilePath": "D:\\source\\tests\\asciiz\\asciiz\\asciiz.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\marcw\\.nuget\\packages\\microsoft.dotnet.ilcompiler\\8.0.5\\microsoft.dotnet.ilcompiler.8.0.5.nupkg.sha512",
+    "C:\\Users\\marcw\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.5\\microsoft.net.illink.tasks.8.0.5.nupkg.sha512",
+    "C:\\Users\\marcw\\.nuget\\packages\\sixlabors.imagesharp\\3.1.4\\sixlabors.imagesharp.3.1.4.nupkg.sha512",
+    "C:\\Users\\marcw\\.nuget\\packages\\system.commandline\\2.0.0-beta4.22272.1\\system.commandline.2.0.0-beta4.22272.1.nupkg.sha512",
+    "C:\\Users\\marcw\\.nuget\\packages\\runtime.win-x64.microsoft.dotnet.ilcompiler\\8.0.5\\runtime.win-x64.microsoft.dotnet.ilcompiler.8.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}
