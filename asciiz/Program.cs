@@ -10,7 +10,7 @@ var rootCommand = new RootCommand("Image to ascii converter");
 var inputFileOption = new Option<string?>(name: "--inputfile", description: "The image file convert.", parseArgument: result =>
 {
     var file = result.Tokens.Single().Value;
-    if (File.Exists(file))
+    if (!File.Exists(file))
     {
         result.ErrorMessage = "File does not exist";
         return null;
@@ -18,33 +18,33 @@ var inputFileOption = new Option<string?>(name: "--inputfile", description: "The
     return file;
 });
 inputFileOption.IsRequired = true;
-inputFileOption.AddAlias("--i");
+inputFileOption.AddAlias("-i");
 rootCommand.AddOption(inputFileOption);
 
 var outputFileOption = new Option<string?>(name: "--outputfile", description: "The text file to create. The file is overwritten if it exists.");
-outputFileOption.IsRequired = true;
-outputFileOption.AddAlias("--o");
+outputFileOption.IsRequired = false;
+outputFileOption.AddAlias("-o");
 rootCommand.AddOption(outputFileOption);
 
 var invertOption = new Option<bool>(name: "--invert", getDefaultValue: () => false, description: "Should the greyscale be inverted.");
-invertOption.AddAlias("--v");
+invertOption.AddAlias("-v");
 rootCommand.AddOption(invertOption);
 
 var maxWidthOption = new Option<int>(name: "--maxwidth", getDefaultValue: () => 128, description: "The maximum width of the output text.");
-maxWidthOption.AddAlias("--w");
+maxWidthOption.AddAlias("-w");
 rootCommand.AddOption(maxWidthOption);
 
 var maxHeightOption = new Option<int>(name: "--maxheight", getDefaultValue: () => 80, description: "The maximum height of the output text.");
-maxHeightOption.AddAlias("--h");
+maxHeightOption.AddAlias("-h");
 rootCommand.AddOption(maxHeightOption);
 
 rootCommand.SetHandler(
-    (inputFile, outputFile, invert, maxWidth, maxHeight) => { Process(inputFile!, outputFile!, invert!, maxWidth!, maxHeight!); },
+    (inputFile, outputFile, invert, maxWidth, maxHeight) => { Process(inputFile!, outputFile, invert!, maxWidth!, maxHeight!); },
     inputFileOption, outputFileOption, invertOption, maxWidthOption, maxHeightOption);
 
 return await rootCommand.InvokeAsync(args);
 
-static void Process(string inputFile, string outputFile, bool invert, int maxWidth, int maxHeight)
+static void Process(string inputFile, string? outputFile, bool invert, int maxWidth, int maxHeight)
 {
     using var image = Image.Load<Rgba32>(inputFile);
     var scaledDimensions = ScaleDimensions(image.Width, image.Height, maxWidth, maxHeight);
@@ -69,7 +69,15 @@ static void Process(string inputFile, string outputFile, bool invert, int maxWid
         }
         sb.Append(Environment.NewLine);
     }
-    File.WriteAllText(outputFile, sb.ToString());
+
+    if (!string.IsNullOrEmpty(outputFile))
+    {
+        File.WriteAllText(outputFile, sb.ToString());
+    }
+    else
+    {
+        Console.Write(sb.ToString());
+    }
 }
 
 static (int width, int height) ScaleDimensions(int width, int height, int maxWidth, int maxHeight)
