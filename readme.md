@@ -4,7 +4,7 @@ asciiz is console application to generate ascii art versions of images..
 
 ## Download
 
-Compiled downloads are not available.
+Downloads are available as [Github Releases](https://github.com/btigi/asciiz/releases/latest)
 
 ## Compiling
 
